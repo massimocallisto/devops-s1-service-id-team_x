@@ -1,0 +1,22 @@
+name: Check LICENSE file
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-license:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if LICENSE file exists
+        run: |
+          echo "Check LICENSE file..."
+          if [ ! -f "LICENSE" ]; then
+            echo "LICENSE not found!"
+            exit 1
+          else
+            echo "LICENSE has been found"
+          fi
