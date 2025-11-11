@@ -1,0 +1,29 @@
+name: Build and Send Package
+
+on:
+  push:
+    branches:
+      - ci-pipeline-post
+      #- feature/*
+
+jobs:
+  build-and-send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build package
+        run: |
+          mkdir -p output
+          zip -r output/package.zip src/ docs/  # esempio di packaging
+
+      - name: Send package to remote server
+        env:
+          REMOTE_URL: ${{ secrets.REMOTE_URL }}
+          REMOTE_TOKEN: ${{ secrets.REMOTE_TOKEN }}
+        run: |
+          curl -X POST \
+               -H "Authorization: Bearer $REMOTE_TOKEN" \
+               -F "file=@output/package.zip" \
+               "$REMOTE_URL/upload"
