@@ -21,10 +21,18 @@ jobs:
           echo "Contenuto della build per branch $BRANCH_NAME" > output/info.txt
           zip -r output/package_$BRANCH_NAME.zip src/ docs/  # esempio di packaging
 
-      - name: Send package to remote server
-        env:
-          REMOTE_URL: ${{ secrets.REMOTE_URL }}
-          REMOTE_TOKEN: ${{ secrets.REMOTE_TOKEN }}
-          BRANCH_NAME: ${{ github.ref_name }}
-        run: |
-          curl -X POST -H "Authorization: Bearer $REMOTE_TOKEN" -F "file=@output/package_$BRANCH_NAME.zip" "$REMOTE_URL/upload"
+      #- name: Send package to remote server
+      #  env:
+      #    REMOTE_URL: ${{ secrets.REMOTE_URL }}
+      #    REMOTE_TOKEN: ${{ secrets.REMOTE_TOKEN }}
+      #    BRANCH_NAME: ${{ github.ref_name }}
+      #  run: |
+      #    curl -X POST -H "Authorization: Bearer $REMOTE_TOKEN" -F "file=@output/package_$BRANCH_NAME.zip" "$REMOTE_URL/upload"
+      - name: Send package via HTTP POST
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: ${{ secrets.REMOTE_URL }}
+          method: POST
+          bearerToken: ${{ secrets.REMOTE_TOKEN }}
+          files: output/package_${{ github.ref_name }}.zip
+          customHeaders: '{"Content-Type":"multipart/form-data"}'
