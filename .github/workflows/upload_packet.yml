@@ -23,7 +23,4 @@ jobs:
           REMOTE_URL: ${{ secrets.REMOTE_URL }}
           REMOTE_TOKEN: ${{ secrets.REMOTE_TOKEN }}
         run: |
-          curl -X POST \
-               -H "Authorization: Bearer $REMOTE_TOKEN" \
-               -F "file=@output/package.zip" \
-               "$REMOTE_URL/upload"
+          curl -X POST -H "Authorization: Bearer $REMOTE_TOKEN" -F "file=@output/package.zip" "$REMOTE_URL/upload"
