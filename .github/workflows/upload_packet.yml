@@ -17,8 +17,8 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.ref_name }}
         run: |
-          mkdir -p output
-          echo "Contenuto della build per branch $BRANCH_NAME" > output/info.txt
+          mkdir -p docs-output/
+          echo "Contenuto della build per branch $BRANCH_NAME" > docs-output/info.txt
           zip -r docs-output/package_$BRANCH_NAME.zip src/ docs/  # esempio di packaging
 
       - name: Upload documentation artifact
