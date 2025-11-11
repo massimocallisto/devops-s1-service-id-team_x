@@ -1,7 +1,7 @@
 # Profilo – <Nickname>
 
 ## Sommario
-Una breve introduzione su di te.  
+Una breve introduzione su di te. Update
 
 ## Competenze ed Esperienze
 Elenca le principali competenze. Puoi usare punti elenco o frasi brevi.
