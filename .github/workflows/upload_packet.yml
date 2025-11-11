@@ -15,15 +15,17 @@ jobs:
 
       - name: Build package
         env:
+          BRANCH_NAME: ${{ github.ref_name }}
           GITHUB_REF_NAME: ${{ GITHUB_REF_NAME }}
         run: |
+          echo "Contenuto della build per branch $BRANCH_NAME" > output/info.txt
+          echo "Contenuto della build per branch $GITHUB_REF_NAME" > output/info.txt
           mkdir -p output
-          zip -r output/package_$GITHUB_REF_NAME.zip src/ docs/  # esempio di packaging
+          zip -r output/package.zip src/ docs/  # esempio di packaging
 
       - name: Send package to remote server
         env:
           REMOTE_URL: ${{ secrets.REMOTE_URL }}
           REMOTE_TOKEN: ${{ secrets.REMOTE_TOKEN }}
-          GITHUB_REF_NAME: ${{ GITHUB_REF_NAME }}
         run: |
-          curl -X POST -H "Authorization: Bearer $REMOTE_TOKEN" -F "file=@output/package_$GITHUB_REF_NAME.zip" "$REMOTE_URL/upload"
+          curl -X POST -H "Authorization: Bearer $REMOTE_TOKEN" -F "file=@output/package.zip" "$REMOTE_URL/upload"
