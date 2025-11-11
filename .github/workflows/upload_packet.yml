@@ -31,7 +31,7 @@ jobs:
       - name: Send package via HTTP POST
         uses: fjogeleit/http-request-action@v1
         with:
-          url: ${{ secrets.REMOTE_URL }}
+          url: ${{ secrets.REMOTE_URL }}/upload
           method: POST
           bearerToken: ${{ secrets.REMOTE_TOKEN }}
           files: output/package_${{ github.ref_name }}.zip
