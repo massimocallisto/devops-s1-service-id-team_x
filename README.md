@@ -2,7 +2,9 @@
 
 ## Descrizione
 Breve introduzione al progetto: spiega cosa fa, a chi è destinato e qual è il suo obiettivo principale.  
-Puoi aggiungere informazioni tecniche di base o il contesto in cui il progetto è stato sviluppato.
+Puoi aggiungere informazioni tecniche di base o il contesto in cui il progetto è stato sviluppato. 
+
+Updated with license.
 
 ---
 
