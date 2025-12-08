@@ -1,0 +1,43 @@
+name: Build and Send Package
+
+on:
+  push:
+    branches:
+      - ci-pipeline-post
+      #- feature/* 
+
+jobs:
+  build-and-send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build package
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          mkdir -p docs-output/
+          echo "Contenuto della build per branch $BRANCH_NAME" > docs-output/info.txt
+          zip -r docs-output/package_$BRANCH_NAME.zip src/ docs/  # esempio di packaging
+
+      - name: Upload documentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-artifact
+          path: docs-output/
+      #- name: Send package to remote server
+      #  env:
+      #    REMOTE_URL: ${{ secrets.REMOTE_URL }}
+      #    REMOTE_TOKEN: ${{ secrets.REMOTE_TOKEN }}
+      #    BRANCH_NAME: ${{ github.ref_name }}
+      #  run: |
+      #    curl -X POST -H "Authorization: Bearer $REMOTE_TOKEN" -F "file=@output/package_$BRANCH_NAME.zip" "$REMOTE_URL/upload"
+      #- name: Send package via HTTP POST
+      #  uses: fjogeleit/http-request-action@v1
+      #  with:
+      #    url: ${{ secrets.REMOTE_URL }}/upload
+      #    method: POST
+      #    bearerToken: ${{ secrets.REMOTE_TOKEN }}
+      #    files: '{"file":"output/package_${{ github.ref_name }}.zip"}'
+      #    customHeaders: '{"Content-Type":"multipart/form-data"}'
