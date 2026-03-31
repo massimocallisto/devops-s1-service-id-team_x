@@ -63,6 +63,7 @@ I test verificano:
 - [Mario Rossi](profiles/mario.profile.md)  
 - [Lucia Bianchi](profiles/lucia.profile.md)  
 - [Giovanni Verdi](profiles/giovanni.profile.md)
+- [Massimo Callisto](profiles/massimocallisto.profile.md)
 
 ---
 
