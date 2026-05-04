@@ -3,7 +3,7 @@ name: Build and Send Package
 on:
   push:
     branches:
-      - feature/update-ci-massimocallisto
+      - feature/update-ci-marcofontani
       #- feature/* 
 
 jobs:
